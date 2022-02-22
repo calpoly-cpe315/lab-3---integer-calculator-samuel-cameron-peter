@@ -98,6 +98,7 @@ check_mul:
 invalid_operator:
 	ldr x0, =invalid_operator_string	// print error message
 	bl printf
+	b prompt_again
 print_result:
 	ldr x0, =result_string	// print the result of an operation
 	mov x1, x3				// result always stored in x3
