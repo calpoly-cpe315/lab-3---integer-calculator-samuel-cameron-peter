@@ -34,9 +34,9 @@ read_integer:
     stp    x29, x30, [sp, -16]!
     add    x29, sp, 0
 	ldr x0, =read_integer_string
-	add x1, x29, 16					
+	add x1, x29, 24
 	bl scanf
-	ldr x1, [x29, 16]
+	ldr x1, [x29, 24]
     ldp    x29, x30, [sp], 16
 	ret
 
@@ -60,12 +60,14 @@ main:
 	mov x1, #1
 	bl print_prompt		// print the prompt for input #1
 	bl read_integer		// get an integer from the user
-	add w21, w1, #0 	// store the first integer in w21
+	mov x21, x1
+	//add w21, w1, #0 	// store the first integer in w21
 
 	mov x1, #2
 	bl print_prompt		// print the prompt for input #2
 	bl read_integer		// get an integer from the user
-	add w22, w1, #0		// store the second integer in w22
+	mov x22, x1
+	//add w22, w1, #0		// store the second integer in w22
 
 
 	ldr x0, =operation_prompt
@@ -115,17 +117,17 @@ prompt_again:
 end:
 	bl exit					// quit the program
 read_integer_string:
-	.asciz "%d"
+	.asciz "%lld"
 prompt_again_str:
 	.asciz "Again? "
 read_character_string:
 	.asciz " %c"
 prompt_string:
-	.asciz "Enter Number %d: "
+	.asciz "Enter Number %lld: "
 invalid_operator_string:
 	.asciz "Invalid Operation Entered.\n"
 result_string:
-	.asciz "Result is: %d\n"
+	.asciz "Result is: %lld\n"
 operation_prompt:
 	.asciz "Enter Operation: "
 .balign 8
@@ -143,3 +145,5 @@ op_mul:
 .data
 op_input:
 	.word 0
+bigint:
+	.quad 0
