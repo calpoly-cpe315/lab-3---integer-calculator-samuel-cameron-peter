@@ -19,14 +19,10 @@ intsub:
 loop:
 	cmp x20, #0		
 	b.eq return
-	// tmp = NOT a
-	mvn x21, x19
-	// tmp = tmp AND b
-	and x21, x20, x21
-	// x = x XOR b
-	eor x19, x19, x20
-	// b = tmp << 1
-	lsl x20, x21, #1
+	mvn x21, x19 // tmp = NOT a
+	and x21, x20, x21 // tmp = tmp AND b
+	eor x19, x19, x20 // x = x XOR b
+	lsl x20, x21, #1 // b = tmp << 1
 	b loop
 
 return:

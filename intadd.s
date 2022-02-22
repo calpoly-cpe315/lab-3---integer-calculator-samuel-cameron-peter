@@ -17,12 +17,12 @@ intadd:
    mov x20, x1
    mov x21, #0
 loop:
-	cmp x20, #0		// If the second operand is zero, simply return
+	cmp x20, #0			// Once the second operand is zero, simply return
 	beq return
 
-	and x21, x19, x20
-	eor x19, x19, x20
-	lsl x20, x21, #1
+	and x21, x19, x20	// The carry bits for a+b is a&b
+	eor x19, x19, x20	// The sum bits for a+b is a^b
+	lsl x20, x21, #1	// The carry bits need to be carried over, so shift them right
 	b loop
 return:
    mov x3, x19
